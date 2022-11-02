@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import pytest
 from lpp_parser import get_lpp_info
 
 lpp_file = '44S_target8mm.lpp'
