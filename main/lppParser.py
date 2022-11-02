@@ -5,7 +5,7 @@
 """
 import re
 
-from .data import ELEM_Z_MAP
+from lpp_parser.data import ELEM_Z_MAP
 
 
 # [settings], primary beam, and frag beam

@@ -22,7 +22,7 @@ def set_entry_points():
 
 setup(
     name='lppParser',
-    version='0.0.1',
+    version='0.0.2',
     description='Parse .lpp file format',
     long_description=readme(),
     long_description_content_type='text/markdown',
@@ -30,10 +30,10 @@ setup(
     author='Tong Zhang',
     author_email='zhangt@frib.msu.edu',
     packages=[
-    #    'lpp_parser.tools',
+        'lpp_parser.data',
         'lpp_parser'],
     package_dir={
-    #    'lpp_parser.tools': 'main/tools',
+        'lpp_parser.data': 'main/data',
         'lpp_parser': 'main'
     },
     include_package_data=True,
