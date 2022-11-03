@@ -1,2 +1,3 @@
 include LICENSE
 include main/data/elem_z_map.json
+include tests/*.lpp

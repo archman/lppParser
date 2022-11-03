@@ -30,9 +30,11 @@ setup(
     author='Tong Zhang',
     author_email='zhangt@frib.msu.edu',
     packages=[
+        'lpp_parser.tests',
         'lpp_parser.data',
         'lpp_parser'],
     package_dir={
+        'lpp_parser.tests': 'tests',
         'lpp_parser.data': 'main/data',
         'lpp_parser': 'main'
     },
