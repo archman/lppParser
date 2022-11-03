@@ -4,22 +4,17 @@
 """
 import re
 
-from lpp_parser.data import ELEM_Z_MAP
-
-# [settings], primary beam, and frag beam
-_AZQ_REG = r'A,Z,Q = (\d+)(\D+)(\d+)\+.*'  # 1:A, 2:name, 3:Q
-_EK_REG = r'Energy = (\d+(?:\.\d+)?).*'  # 1: Energy in MeV/u
-_PWR_REG = r'Intensity = (\d+(?:\.\d+)?).*'  # 1: Power in kW
-_RF_FREQ_REG = r'RF.* = (\d+(?:\.\d+)?).*'  # 1: RF frequency in MHz
-_TAU_REG = r'Bunch.* = (\d+(?:\.\d+)?).*'  # 1: Bunch length in ns
-_ISO_REG = r'Settings.* = (\d+)([a-zA-Z]+).*'  # Settings on A,Z, 1: A, 2: name
+from ._reg_map import get_params
 
 
 def get_lpp_info(filepath: str):
     """Return a list of interested info from the given .lpp file.
     """
     info_dict = {
-        'settings': {},
+        'settings': {
+            'primary_beam': {},
+            'frag_beam': {},
+        },
     }
     processed_nline = 0
     with open(filepath, "r") as fp:
@@ -29,35 +24,24 @@ def get_lpp_info(filepath: str):
             if line.strip().startswith('[settings]'):
                 print(f"{processed_nline}: hit [settings] section")
                 _line1 = fp.readline()  # A,Z,Q
-                _line1_r = re.match(_AZQ_REG, _line1.strip())
+                info_dict['settings']['primary_beam'].update(
+                    get_params('PRIM_BEAM_NAME', _line1))
                 _line2 = fp.readline()  # Energy, MeV/u
-                _line2_r = re.match(_EK_REG, _line2.strip())
+                info_dict['settings']['primary_beam'].update(
+                    get_params('PRIM_BEAM_EK', _line2))
                 _line3 = fp.readline()  # Intensity (Power), kW
-                _line3_r = re.match(_PWR_REG, _line3.strip())
+                info_dict['settings']['primary_beam'].update(
+                    get_params('PRIM_BEAM_PWR', _line3))
                 _line4 = fp.readline()  # RF frequency, MHz
-                _line4_r = re.match(_RF_FREQ_REG, _line4.strip())
+                info_dict['settings']['primary_beam'].update(
+                    get_params('RF_FREQ', _line4))
                 _line5 = fp.readline()  # Bunch length, ns
-                _line5_r = re.match(_TAU_REG, _line5.strip())
+                info_dict['settings']['primary_beam'].update(
+                    get_params('BUNCH_LENGTH', _line5))
                 _line6 = fp.readline()  # Settings on A, Z (isotope)
-                _line6_r = re.match(_ISO_REG, _line6.strip())
-                info_dict['settings']['primary_beam'] = {
-                    'A': _line1_r.group(1),
-                    'name': _line1_r.group(2),
-                    'Q': _line1_r.group(3),
-                    'Z': ELEM_Z_MAP[_line1_r.group(2)],
-                    'Ek': _line2_r.group(1),
-                    'power': _line3_r.group(1),
-                    'rf_freq': _line4_r.group(1),
-                    'tau': _line5_r.group(1),
-                }
-                info_dict['settings']['frag_beam'] = {
-                    'A': _line6_r.group(1),
-                    'name': _line6_r.group(2),
-                    'Z': ELEM_Z_MAP[_line6_r.group(2)],
-                }
-
+                info_dict['settings']['frag_beam'].update(
+                    get_params('FRAG_BEAM_NAME', _line6))
             line = fp.readline()
-    print(info_dict)
     return info_dict
 
 
