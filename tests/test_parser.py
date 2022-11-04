@@ -13,7 +13,8 @@ def test_get_lpp_info_1():
     settings = d['settings']
     assert settings['primary_beam'] == {
         'A': 48,
-        'name': 'Ca',
+        'symbol': 'Ca',
+        'name': 'Calcium',
         'Q': 20,
         'Z': 20,
         'Ek': 220.0,
@@ -21,7 +22,12 @@ def test_get_lpp_info_1():
         'rf_freq': 40.25,
         'tau': 0.261
     }
-    assert settings['frag_beam'] == {'A': 44, 'name': 'S', 'Z': 16}
+    assert settings['frag_beam'] == {
+        'A': 44,
+        'symbol': 'S',
+        'name': 'Sulfur',
+        'Z': 16
+    }
 
 
 def test_get_lpp_info_2():
@@ -29,7 +35,8 @@ def test_get_lpp_info_2():
     settings = d['settings']
     assert settings['primary_beam'] == {
         'A': 36,
-        'name': 'Ar',
+        'symbol': 'Ar',
+        'name': 'Argon',
         'Q': 18,
         'Z': 18,
         'Ek': 262.0,
@@ -37,7 +44,12 @@ def test_get_lpp_info_2():
         'rf_freq': 40.25,
         'tau': 0.26
     }
-    assert settings['frag_beam'] == {'A': 1, 'name': 'H', 'Z': 1}
+    assert settings['frag_beam'] == {
+        'A': 1,
+        'symbol': 'H',
+        'name': 'Hydrogen',
+        'Z': 1
+    }
 
 
 def test_get_lpp_info_3():
@@ -45,7 +57,8 @@ def test_get_lpp_info_3():
     settings = d['settings']
     assert settings['primary_beam'] == {
         'A': 238,
-        'name': 'U',
+        'symbol': 'U',
+        'name': 'Uranium',
         'Q': 92,
         'Z': 92,
         'Ek': 190.0,
@@ -53,4 +66,9 @@ def test_get_lpp_info_3():
         'rf_freq': 40.0,
         'tau': 0.26
     }
-    assert settings['frag_beam'] == {'A': 223, 'name': 'Th', 'Z': 90}
+    assert settings['frag_beam'] == {
+        'A': 223,
+        'symbol': 'Th',
+        'name': 'Thorium',
+        'Z': 90
+    }
