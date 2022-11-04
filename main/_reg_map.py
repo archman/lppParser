@@ -4,7 +4,7 @@ from .data import ELEM_Z_MAP
 
 # map of regex
 # [settings], primary beam, and frag beam
-_AZQ_REG = r'.*A,Z,Q.*=\ *(\d+)(\D+)(\d+)\+.*'  # 1:A, 2:name, 3:Q
+_AZQ_REG = r'.*A,Z,Q.*=\ *(\d+)([a-zA-Z]+)\ *(\d+)\+.*'  # 1:A, 2:name, 3:Q
 _EK_REG = r'.*Energy.*=\ *(\d+(?:\.\d+)?).*'  # 1: Energy in MeV/u
 _PWR_REG = r'.*Intensity.*=\ *(\d+(?:\.\d+)?).*'  # 1: Power in kW
 _RF_FREQ_REG = r'.*RF.*=\ * (\d+(?:\.\d+)?).*'  # 1: RF frequency in MHz
